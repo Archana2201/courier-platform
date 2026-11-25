@@ -11,7 +11,14 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
-      - run: dotnet test backend/tests/Courier.Tests/Courier.Tests.csproj --verbosity normal
+      - name: Build and test
+        run: |
+          set +e
+          dotnet test backend/tests/Courier.Tests/Courier.Tests.csproj --verbosity normal 2>&1 | tee dotnet.log
+          status=${PIPESTATUS[0]}
+          # Surface compiler/test failures as annotations so they are visible without opening the raw log.
+          grep -E ": error |^\s+Failed |Assert\.|Error Message" dotnet.log | sort -u | head -40 | while IFS= read -r line; do echo "::error::${line//%/%25}"; done
+          exit $status
       - run: dotnet build backend/src/Courier.Gateway/Courier.Gateway.csproj -c Release
   frontend:
     runs-on: ubuntu-latest
