@@ -38,7 +38,7 @@ public class MessagingTests
     [Fact]
     public async Task Outbox_dispatcher_publishes_pending_messages_once()
     {
-        var (connection, db) = Create(o => new ShipmentsDbContext(o));
+        var (connection, db) = Create<ShipmentsDbContext>(o => new ShipmentsDbContext(o));
         using var _ = connection;
         await using var __ = db;
 
@@ -58,7 +58,7 @@ public class MessagingTests
     [Fact]
     public async Task Outbox_dispatcher_keeps_message_and_counts_attempt_when_bus_fails()
     {
-        var (connection, db) = Create(o => new ShipmentsDbContext(o));
+        var (connection, db) = Create<ShipmentsDbContext>(o => new ShipmentsDbContext(o));
         using var _ = connection;
         await using var __ = db;
 
@@ -81,7 +81,7 @@ public class MessagingTests
     [Fact]
     public async Task Tracking_handler_applies_events_and_ignores_duplicates()
     {
-        var (connection, db) = Create(o => new TrackingDbContext(o));
+        var (connection, db) = Create<TrackingDbContext>(o => new TrackingDbContext(o));
         using var _ = connection;
         await using var __ = db;
         var handler = new TrackingEventHandler(db);
@@ -104,7 +104,7 @@ public class MessagingTests
     [Fact]
     public async Task Tracking_handler_ignores_unknown_event_types()
     {
-        var (connection, db) = Create(o => new TrackingDbContext(o));
+        var (connection, db) = Create<TrackingDbContext>(o => new TrackingDbContext(o));
         using var _ = connection;
         await using var __ = db;
 
