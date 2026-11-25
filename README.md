@@ -31,6 +31,9 @@ Or run each service with `dotnet run --project backend/src/<Service>` (needs Pos
 2. **Shipments (ops)** → advance the status: Picked Up → In Transit → Out For Delivery → Delivered.
 3. **Track a parcel** → paste the tracking number to see the timeline.
 
+## MCP server
+[`mcp-server/`](mcp-server) exposes the platform to AI assistants (quote, book, track) over the Model Context Protocol.
+
 ## Tests
 ```bash
 dotnet test backend/tests/Courier.Tests     # pricing rules, state machine, outbox, idempotent tracking
