@@ -1,0 +1,15 @@
+# Builds any service: docker build --build-arg PROJECT=Courier.Pricing -f Dockerfile.service .
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG PROJECT
+WORKDIR /src
+COPY backend/ ./backend/
+RUN dotnet publish backend/src/${PROJECT}/${PROJECT}.csproj -c Release -o /app
+
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+ARG PROJECT
+WORKDIR /app
+COPY --from=build /app .
+ENV ASPNETCORE_URLS=http://+:8080
+ENV PROJECT_DLL=${PROJECT}.dll
+EXPOSE 8080
+ENTRYPOINT ["sh", "-c", "dotnet $PROJECT_DLL"]
