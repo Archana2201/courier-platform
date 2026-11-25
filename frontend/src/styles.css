@@ -19,7 +19,7 @@ button:disabled { opacity: .6; cursor: default; }
 .actions { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
 table { width: 100%; border-collapse: collapse; }
 th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #e5e7eb; }
-.pill { padding: 2px 10px; border-radius: 999px; background: #e5e7eb; font-size: .85rem; }
+.pill { white-space: nowrap; padding: 2px 10px; border-radius: 999px; background: #e5e7eb; font-size: .85rem; }
 .pill.Delivered { background: #bbf7d0; } .pill.Cancelled { background: #fecaca; }
 .pill.InTransit, .pill.OutForDelivery { background: #bfdbfe; }
 .muted { color: #6b7280; } .small { font-size: .85rem; } .error { color: #b91c1c; }
